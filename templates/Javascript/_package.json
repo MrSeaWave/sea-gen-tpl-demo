@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "main": "src/index.js",
   "dependencies": {
-    "react": "^16.13.1",
-    "antd": "^4.3.4"
+    "react": "^16.13.1"
   },
   "description": "描述",
   "licence": "MIT",
