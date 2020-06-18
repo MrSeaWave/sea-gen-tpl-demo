@@ -46,6 +46,7 @@ class SeaDemoGenerator extends Generator {
     });
   }
   _copyTpl() {
+    // 将所有需要替换值得放到最外侧以_区分
     const { language, appName } = this.ans;
     // copyTpl 会使用模板引擎，替换 <%= appName %>
     // 替换package.json
@@ -56,7 +57,7 @@ class SeaDemoGenerator extends Generator {
     );
     // 替换app.yaml
     this.fs.copyTpl(
-      this.templatePath(language, "./config/_app.yaml"),
+      this.templatePath(language, "./_app.yaml"),
       this.destinationPath(appName, "./config/app.yaml"),
       this.ans
     );
@@ -73,7 +74,9 @@ class SeaDemoGenerator extends Generator {
     this._copyTpl();
     // 复制其余 copy 支持文件/文件夹
     fs.readdirSync(this.templatePath(language))
-      .filter(name => !name.startsWith("_"))
+      .filter(name => {
+        return !name.startsWith("_")
+      })
       .forEach(item => {
         this.fs.copy(this.templatePath(language, item), this.destinationPath(appName, item));
       });
