@@ -62,8 +62,8 @@ class SeaDemoGenerator extends Generator {
     );
     // 替换index.html
     this.fs.copyTpl(
-      this.templatePath(language, "./config/_index.html"),
-      this.destinationPath(appName, "./config/index.html"),
+      this.templatePath(language, "./_index.html"),
+      this.destinationPath(appName, "./index.html"),
       this.ans
     );
   }
