@@ -18,6 +18,9 @@ install
 end
 */
 class SeaDemoGenerator extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+  }
   prompting() {
     const opts = [
       {
@@ -75,7 +78,7 @@ class SeaDemoGenerator extends Generator {
     // 复制其余 copy 支持文件/文件夹
     fs.readdirSync(this.templatePath(language))
       .filter(name => {
-        return !name.startsWith("_")
+        return !name.startsWith("_");
       })
       .forEach(item => {
         this.fs.copy(this.templatePath(language, item), this.destinationPath(appName, item));
@@ -84,9 +87,10 @@ class SeaDemoGenerator extends Generator {
 
   install() {
     const projectDir = path.join(process.cwd(), this.ans.appName);
-    this.spawnCommandSync("npm", ["install", "--registry=https://registry.npm.taobao.org"], {
-      cwd: projectDir,
-    });
+    !this.options["skip-install"] &&
+      this.spawnCommandSync("npm", ["install", "--registry=https://registry.npm.taobao.org"], {
+        cwd: projectDir,
+      });
   }
 
   end() {
